@@ -1,0 +1,11 @@
+<Home>
+MetaTitle: Welcome to the Home page.
+BodyTitle: Here is the big boy font.
+
+Maybe a list should be below this:
+<strong>Groceries</strong>
+1) butter
+2) eggs
+3) water
+
+Here is an image of the ssebs logo <img src="img/1.png" width="256"/>

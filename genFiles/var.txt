@@ -1,0 +1,3 @@
+#These are the variables that will be used for the head/meta data.
+author: ssebs
+description: myDescriptionHere, just 160 chars max
