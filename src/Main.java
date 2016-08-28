@@ -33,11 +33,10 @@ public class Main
 				_description = s.substring("description:".length());
 			}
 		}
-		
-		
+
 		//Clear contents of genFile: bodyContents.html
-		Util.writeFile("",_BODY_CONTENT_PATH);
-		
+		Util.writeFile("", _BODY_CONTENT_PATH);
+
 	}
 
 	private static void replaceHome()
@@ -58,7 +57,6 @@ public class Main
 		Util.replaceStringInFIle(_HEAD_PATH, "#AUTHOR#", _author);
 		Util.replaceStringInFIle(_HEAD_PATH, "#DESCRIPTION#", _description);
 
-	
 		/// Below generates the body contents
 		for (String s : homeLines)
 		{
@@ -66,25 +64,19 @@ public class Main
 			{
 				/*Having the code like this makes it easier to read. Above is selecting 
 				  	the stuff that's not the body contents.*/
-			} else if (s.startsWith("BodyTitle:")) 
+			} else if (s.startsWith("BodyTitle:"))
 			{
 				/*This is to generate the main header (h1)*/
 				String str = "<h1>" + s.substring("BodyTitle:".length()).trim() + "</h1>";
 				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
 			} else
 			{
-				
-				
 				//TODO: Add rules to this, below should be a last resort.
-				Util.appendFile(s + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
-			
-				
-				
-				
-			}
+				String str = "<p>" + s + "</p>";
+				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
+			} // Final else: this should just be a <p>
 		}
-		
-		
+
 		Util.appendFile("<!-- This content is generated -->", _BODY_CONTENT_PATH);
 
 	}
