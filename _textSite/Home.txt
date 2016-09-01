@@ -9,3 +9,14 @@ Maybe a list should be below this:
 3) water
 
 Here is an image of the ssebs logo <img src="img/1.png" width="256"/>
+
+:2col:
+[
+<h2>Some title</h2>
+<p> some words in here</p>
+]
+[
+<h2>Some other title</h2>
+<p> some words in here2</p>
+]
+:2col:END

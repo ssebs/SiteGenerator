@@ -1,3 +1,16 @@
 /*stylesheet.css
 * first stylesheet to be used
 */
+html {
+	background-color: #41AFFF;
+	color: white;
+}
+
+.col2 {
+	width: 50%;
+	float: left;
+}
+
+.clear-float {
+	clear: both;
+}

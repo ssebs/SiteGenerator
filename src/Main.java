@@ -6,6 +6,7 @@ import java.util.ArrayList;
 * 	TODO:-Bootstrap Styling
 * 	TODO:-Different layouts of pages: Home, Text Only, "Portfolio", Gallery, Contact
 *	TODO:-Read Number of files, make them all link to eachother in a toolbar 
+*	TODO:-Make Snippets (things like image galleries, columns, background things)
 */
 
 public class Main
@@ -43,8 +44,8 @@ public class Main
 	{
 		// Syntax of these files are subject to change.
 		ArrayList<String> homeLines = new ArrayList<String>();
-
 		homeLines = Util.readFileToArrayList("_textSite/Home.txt");
+		String homeStr = Util.readFileToString("_textSite/Home.txt");
 
 		// Below generates the metadata in the head.
 		for (String s : homeLines)
@@ -69,16 +70,41 @@ public class Main
 				/*This is to generate the main header (h1)*/
 				String str = "<h1>" + s.substring("BodyTitle:".length()).trim() + "</h1>";
 				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
+			} else if (s.startsWith(":2col:") && !s.endsWith("END"))
+			{
+				makeTwoCol(homeStr);
+			} else if (s.startsWith(":2col:"))
+			{
+
 			} else
 			{
 				//TODO: Add rules to this, below should be a last resort.
-				String str = "<p>" + s + "</p>";
-				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
+
+				//				String str = "<p>" + s + "</p>";Q
+				//				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH); // Will add every line, needs rules
 			} // Final else: this should just be a <p>
 		}
 
 		Util.appendFile("<!-- This content is generated -->", _BODY_CONTENT_PATH);
 
+	}
+
+	private static void makeTwoCol(String homeStr)
+	{
+		String[] twoCol = homeStr.split(":2col:");
+		String[] colContents = twoCol[1].split("\\[");
+
+		colContents[1] = colContents[1].replaceAll("\\]", "").trim(); //Remove the [] dividers
+		colContents[2] = colContents[2].replaceAll("\\]", "").trim(); //Remove the [] dividers
+
+		//		System.out.println(colContents[1]); // contents of 2col
+		//		System.out.println(colContents[2]); // contents of 2col
+		String s1 = "<div class='col2'>" + colContents[1] + "</div>";
+		String s2 = "<div class='col2'>" + colContents[2] + "</div>";
+
+		Util.appendFile(s1 + System.lineSeparator(), _BODY_CONTENT_PATH);
+		Util.appendFile(s2 + System.lineSeparator(), _BODY_CONTENT_PATH);
+		Util.appendFile("<div class='clear-float'></div>", _BODY_CONTENT_PATH);
 	}
 
 	private static void generateHome()
