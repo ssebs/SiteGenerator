@@ -10,58 +10,47 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Util
-{
-	public static String readFileToString(String path)
-	{
+public class Util {
+	public static String readFileToString(String path) {
 
-		try
-		{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
 
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();
 
-			while (line != null)
-			{
+			while (line != null) {
 				sb.append(line);
 				sb.append("\r\n");
 				line = br.readLine();
 			}
 			br.close();
 			return sb.toString();
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "String Failed to Load.";
 		}
 	}
 
-	public static ArrayList<String> readFileToArrayList(String path)
-	{
-		try
-		{
+	public static ArrayList<String> readFileToArrayList(String path) {
+		try {
 			ArrayList<String> ret = new ArrayList<String>();
 			BufferedReader br = new BufferedReader(new FileReader(path));
 			String line = br.readLine();
-			while (line != null)
-			{
+			while (line != null) {
 				ret.add(line);
 				line = br.readLine();
 			}
 			br.close();
 			return ret;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static boolean writeFile(String content, String path)
-	{
-		try
-		{
+	public static boolean writeFile(String content, String path) {
+		try {
 			File file = new File(path);
 			file.getParentFile().mkdirs();
 
@@ -71,17 +60,14 @@ public class Util
 			wr.close();
 
 			return true;
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static boolean appendFile(String content, String path)
-	{
-		try
-		{
+	public static boolean appendFile(String content, String path) {
+		try {
 			File file = new File(path);
 			file.getParentFile().mkdirs();
 
@@ -91,16 +77,14 @@ public class Util
 			wr.close();
 
 			return true;
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		return false;
 	}
 
-	public static boolean replaceStringInFIle(String path, String from, String to)
-	{
+	public static boolean replaceStringInFIle(String path, String from, String to) {
 		String out = "";
 		String ret = "";
 		out = readFileToString(path);
@@ -109,4 +93,4 @@ public class Util
 		return writeFile(ret, path);
 	}
 
-} //End Util Class
+} // End Util Class
