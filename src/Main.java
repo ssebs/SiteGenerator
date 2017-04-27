@@ -32,9 +32,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Site Generator.");
+		System.out.println("------------------------------");
 		initVars();
 		replaceHome();
 		compileHome();
+		System.out.println("-------------------------------------------------------------");
 		System.out.println("index.html page has been generated at: " + _HOME_PAGE_PATH);
 		System.out.println("Completed. Please see \"__site\" to view generated site files.");
 	}
@@ -82,6 +84,7 @@ public class Main {
 		Util.replaceStringInFIle(_HEAD_PATH, "#DESCRIPTION#", _description);
 
 		/// Below generates the body contents
+
 		for (String s : homeLines) {
 			if (s.startsWith("#")) {
 				// ignore comments
@@ -92,16 +95,16 @@ public class Main {
 				String str = "<h1>" + s.substring("BodyTitle:".length()).trim() + "</h1>";
 				Util.appendFile(str + System.lineSeparator(), _BODY_CONTENT_PATH);
 
+			} else if (s.matches("^[0-9]\\).*")) {
+				// above regex matches ordered list e.g. 1)
+				Util.appendFile("<br>" + System.lineSeparator() + s + System.lineSeparator(), _BODY_CONTENT_PATH);
+				// TODO: fix newline thing
 			} else if (s.startsWith(":2col:") && !s.endsWith("END")) {
 				makeTwoCol(homeStr);
-
-				// TODO: Fix this
-
-			} else if (s.startsWith(":2col:")) {
-				// seems to be needed
 			} else {
 				Util.appendFile(s + System.lineSeparator(), _BODY_CONTENT_PATH);
-				// TODO: Add rules to this, below should be a last resort.
+				// TODO: Fix the two col issue, since this loops every line,
+				// 2col should only be called once
 
 			}
 		}
@@ -116,6 +119,8 @@ public class Main {
 
 		colContents[1] = colContents[1].replaceAll("\\]", "");
 		colContents[2] = colContents[2].replaceAll("\\]", "");
+
+		System.out.println(colContents[2]);
 
 		// System.out.println(colContents[1]); // contents of 2col
 		// System.out.println(colContents[2]); // contents of 2col
